@@ -1,0 +1,114 @@
+
+.chkout-outer {
+    position: relative;
+}
+.chkout-outer::after{
+    background-image: url(../../assets/images/images-floral/saree-bg.png);   
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    z-index: -1;
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+    width: 100%;
+    opacity: 0.1;
+    height: 100%; 
+}
+.final-price{
+    font-size: 20px;
+    font-weight: bold;
+}
+.chk-out{
+    padding: 20px;
+    width: 80%;
+}
+.caart-holder{
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+.form-contains{
+    padding: 7px 32px;
+    border: 1px solid #bfb6b6;
+    border-radius: 6px;
+    background: #fef7f1;
+    padding: 28px 28px;
+    flex: 1;
+}
+.form-contains>form{
+    background: #fff;
+    padding: 18px 17px;
+    border-radius: 5px;
+}
+.form-group{
+    padding: 10px;
+}
+.crt-details{
+    padding-left: 26px;
+}
+.crt-details>h3{
+    font-size: 20px;
+   
+}
+.img-fluid{
+    border-radius: 10px;
+}
+.chkout-summary{
+    padding: 28px 28px;
+   background: #fef7f1;
+   border: 1px solid #bfb6b6;
+   border-radius: 6px;
+}
+.chkout-summary .summary-content{
+    background: #fff;
+    padding: 18px 17px;
+    border-radius: 5px;
+    height: 100%;
+}
+.chkout-summary .summary-content .chkout-head-summary{
+    line-height: 32px;
+    margin-bottom: 1rem;
+    color: #000000;
+    font-size: 24px;
+    font-weight: 400;
+}
+
+
+@media (max-width: 767px) {
+    .chkout-summary{
+        padding-top: 25px;
+    }
+    .form-control{
+        padding: 7px;
+    }
+    
+    .form-contains,.chkout-summary{
+        padding: 21px;
+    }
+  
+   
+
+}
+@media (min-width: 768px) and (max-width: 1024px) {
+    .chkout-summary {
+        padding: 10px;
+    }
+    .chk-out{
+        width: 90%;
+    }
+    .chkout-summary .summary-content .chkout-head-summary{
+        font-size: 20px;
+    }
+    .des-details{
+        flex-direction: column;
+    }
+    .crt-details{
+        padding: 0;
+        text-align: center;
+    }
+    .form-contains{
+        padding: 10px;
+    }
+}

@@ -1,0 +1,25 @@
+.prod-detail-slides{
+    position: relative;
+}
+.image_viewer-ch{
+    position: absolute;
+    z-index: 99999;
+    right: 1%;
+    top: 1%;
+}
+.image_viewer-ch button{
+    background: #46464678;
+    color: #fff;
+    border: 0;
+    height: 30px;
+    width: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: .5;
+    font-weight: 900;
+    font-size: 19px;
+}
+.image_viewer-ch button:hover{
+    opacity: 1;
+}

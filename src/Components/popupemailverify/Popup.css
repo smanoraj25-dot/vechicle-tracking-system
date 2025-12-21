@@ -1,0 +1,102 @@
+.popup-wrapper{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: #0000007d;
+    z-index: 3;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.popup-inner-email{
+    width: 33%;
+    border-radius: 10px;
+    padding: 20px ;
+    background: #fff;
+    position: relative;
+    text-align: center;
+}
+.pop-close-btn{
+    position: absolute;
+    background-color: transparent;
+    border: 0;
+    font-size: 23px;
+    top: 2%;
+    right: 1%;
+    
+    height: 30px;
+    width: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.pop-close-btn:hover{
+    background: #f4f4f47d;
+    border-radius: 100%;
+}
+.popupad{
+    font-size: 22px;
+    font-weight: 800;
+    margin: 20px 30px;
+}
+.popupinp-wrapper{
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    justify-content: center;
+}
+.popupinp-wrapper .popupinp{
+    border: 1px solid #afafaf;
+    padding: 5px ;
+    border-radius: 5px;
+    text-align: center;
+    background: #eeeeee;
+    font-weight: 500;
+}
+.popupinp-wrapper .popupinp:focus{
+    background: #fff;
+    outline: 1px;
+}
+.popupinp-wrapper .popupinp:active{
+    background: #fff;
+    outline: 1px;
+}
+.verifypopup{
+    background: #000;
+    border: 0;
+    color:#fff;
+    padding: 5px 40px;
+    margin: 20px 0 15px;
+    border-radius: 20px;
+}
+.resend-code{
+    margin: 5px 0;
+    
+    background: transparent;
+    border: 0;
+    text-decoration: underline;
+    font-size: 13px;
+    text-align: center;
+}
+
+
+@media only screen and (max-width:767px){
+    .popup-inner-email{
+        width: 90%;
+    }
+    .popupinp-wrapper{
+        gap: 22px;
+    }
+}
+
+@media only screen and (min-width:768px) and (max-width:1023px){
+    .popup-inner-email{
+        width: 50%;
+    }
+    .popupinp-wrapper{
+        gap: 22px;
+    }
+}

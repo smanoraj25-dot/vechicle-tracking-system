@@ -1,0 +1,26 @@
+.abt-storie-sec-wrap{
+    margin: 80px 0;
+}
+.abt-str-title{
+    font-size: 30px;
+    font-weight: 700;
+}
+.abt-cont{
+    font-size: 15px;
+    margin: 25px 0;
+}
+.abt-stories-bg{
+    position: relative;
+}
+.abtimgbg{
+    position: absolute;
+    /* width: 100%; */
+    width: 500px;
+    opacity: .1;
+    top:80%;
+    right: 0;
+}
+.abt-st-2{
+    top: 1%;
+    left: 1%;
+}

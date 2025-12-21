@@ -1,0 +1,65 @@
+.account-wrap-sec{
+    margin: 60px 0;
+}
+.accnt-ul-wrap{
+    list-style: none;
+    border: 1px solid #ededed;
+    border-radius: 10px;
+    overflow: hidden;
+}
+.accnt-ul-wrap li{
+    padding: 15px 20px;
+    border-bottom: 1px solid #ededed;
+    cursor: pointer;
+}
+.accnt-ul-wrap li:last-child{
+    border: 0;
+}
+.accnt-r-wrap{
+    border: 1px solid #ededed;
+    padding: 20px ;
+    border-radius: 10px
+}
+.acct-r-t{
+    font-size: 21px;
+    font-weight: 700;
+}
+
+.acct-table{
+    border: 1px solid #ededed;
+    border-radius: 10px;
+    margin:25px 0
+}
+.acct-table tr td{
+    border: 1px solid #ededed;
+    padding: 20px;
+}
+.acct-table tr td:first-child{
+    font-weight: 600;
+}
+.acct-btn-edit{
+    background: #000;
+    border: 0;
+    border-radius: 20px;
+    color: #fff;
+    padding: 6px 40px;
+}
+.acnt-form-inp{
+    width: 100%;
+    border: 1px solid #c3c3c3;
+    border-radius: 8px;
+    padding: 10px 20px;
+}
+.acnt-form-inp:focus{
+    outline: 0;
+}
+  input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.err-acted{
+    font-size: 14px;
+    color: #ff0000;
+}

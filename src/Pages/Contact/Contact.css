@@ -1,0 +1,95 @@
+/*2*/
+.contact-sec-1-wrapper{
+  padding: 40px 0;
+}
+.cont-hts{
+  font-size: 25px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+.cont-inner-wrap{
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-left: 15px;
+}
+.cont-w-sec{
+  padding-bottom: 30px;
+  padding-top: 30px;
+  border-bottom: 1px solid #e4e4e4  ;
+}
+.cont-inner-wrap .contLink{
+  color: #212529;
+  text-decoration: none;
+  font-size: 15px;
+}
+.subd-h-cnt{
+  font-size: 18px;
+  font-weight: 700;
+  margin: 20px 0;
+}
+.contct-l0wrap .cont-w-sec:first-child{
+  padding-top: 0;
+}
+.cont-inner-wrap svg{
+  font-size: 16px;
+}
+.contact-inp-f{
+  width: 100%;
+  border: 1px solid #cacaca;
+  border-radius: 7px;
+  padding: 6px 15px;
+}
+.contact-inp-f::placeholder{
+  font-size: 14px;
+}
+.contact-lab-f{
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 5px;
+  display: block;
+}
+.inp-cnt-wrap{
+  padding-bottom: 30px;
+}
+.cont-text-area{
+  resize: none;
+}
+.form-sub-btn-contact{
+  width: 100%;
+  border: 0;
+  background: #000;
+  color: #fff;
+  border-radius: 30px;
+  padding: 10px;
+}
+.contct-l0wrap{
+  padding-right: 15%;
+}
+.contact-sec-2-wrapper{
+  padding: 60px 0 10px;
+}
+.error-msg{
+  color: #b00000;
+  font-size: 12px;
+}
+@media only screen and (min-width:768px) and (max-width:1023px){
+  .contct-l0wrap{
+    padding-right: 5%;
+  }
+  .cont-w-sec {
+    padding-bottom: 30px;
+    padding-top: 8px;
+    border-bottom: 1px solid #e4e4e4;
+}
+}
+@media only screen and (max-width:767px){
+  .contct-l0wrap{
+    padding-right: 2%;
+  }
+  .cont-w-sec {
+    padding-bottom: 30px;
+    padding-top: 8px;
+    border-bottom: 1px solid #e4e4e4;
+}
+}

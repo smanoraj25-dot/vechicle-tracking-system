@@ -1,0 +1,244 @@
+
+  /* Container styling */
+.product-card {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  position: relative; /* For wishlist icon */
+}
+
+/* Wishlist icon styling */
+.wishlist-icon {
+
+  transition: background-color 0.3s ease;
+  position: absolute;
+  z-index: 1;
+  padding: 7px;
+  background: #fff;
+  border-radius: 50%;
+  display: flex
+;
+  align-items: center;
+  justify-content: center;
+}
+
+.wishlist-heart {
+  color: #ff6347;
+  cursor: pointer;
+}
+
+
+/* Hover effect on wishlist icon */
+.wishlist-icon:hover {
+  background-color: rgba(255, 255, 255, 1);
+}
+
+/* Image hover effect */
+.product-img {
+  position: relative;
+  overflow: hidden;
+}
+
+.product-img img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.product-img:hover img {
+  transform: scale(1.05);
+  opacity: 0.9; /* Opacity decrease on hover */
+}
+
+/* Product information styling */
+.product-info {
+  padding: 15px;
+}
+
+.product-info p {
+  font-size: 14px;
+}
+
+.product-title {
+  font-size: 16px;
+  margin: 0 0 10px;
+}
+
+.product-price {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+  color: #333;
+  margin: 10px 0;
+}
+
+/* Size options styling */
+.product-size span {
+  display: inline-block;
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 5px 10px;
+  margin-right: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.product-size {
+  font-size: 14px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.product-size span:hover {
+  background-color: #e0e0e0;
+}
+
+/* Color swatches styling */
+.product-colors {
+  display: flex;
+  margin: 10px 0;
+  gap: 10px;
+}
+
+.color-swatch {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 5px;
+  border: 1px solid #ddd;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.color-swatch:hover {
+  transform: scale(1.1);
+}
+
+/* Add to Cart button styling */
+.add-to-cart-btn {
+  background-color: #ff6f61;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  width: 100%;
+  text-align: center;
+}
+
+.add-to-cart-btn:hover {
+  background-color: #e65b50;
+  transform: translateY(-2px);
+}
+
+/* Normal price styling */
+.normal-price {
+  font-size: 1.2em;
+  color: #555;
+}
+
+/* Offer price with strikethrough */
+.offer-price {
+  font-size: 1.2em;
+  color: #999;
+  text-decoration: line-through;
+}
+
+.truncate {
+  display: -webkit-box;
+  -webkit-line-clamp: 2; 
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+
+/* Wishlist Icon Styling */
+.wishlist-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  padding: 8px;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.wishlist-icon:hover {
+  transform: scale(1.1);
+}
+
+.wishlist-icon .FaHeart {
+  color: #ccc;
+  transition: color 0.3s ease;
+}
+
+.wishlist-icon .wishlisted {
+  color: #ff6f61;
+}
+
+/* Product Image Animation */
+.product-img {
+  position: relative;
+  overflow: hidden;
+}
+
+.product-image {
+  transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+.product-img:hover .product-image {
+  transform: scale(1.1);
+  opacity: 0.9;
+}
+
+/* Add to Cart button styling */
+.add-to-cart-btn {
+  background-color: #ff6f61;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  width: 100%;
+  text-align: center;
+}
+
+.add-to-cart-btn:hover {
+  background-color: #e65b50;
+  transform: translateY(-2px);
+}
+
+/* Normal price styling */
+.normal-price {
+  font-size: 1.2em;
+  color: #555;
+}
+
+/* Offer price with strikethrough */
+.offer-price {
+  font-size: 1.2em;
+  color: #999;
+  text-decoration: line-through;
+}
+
+.truncate {
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Limits text to 2 lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

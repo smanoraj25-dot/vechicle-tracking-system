@@ -1,0 +1,47 @@
+.hm-cat-wrapper{
+    position: relative;
+    overflow: hidden;
+    border-radius: 20px;
+    cursor: pointer;
+}
+.hm-cat-h-wrapper-body{
+    position: absolute;
+    z-index: 1;
+    background: linear-gradient(180deg,transparent 0,rgba(0,0,0,.7) 100%);
+    padding: 20px;
+    width: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 5px;
+    bottom: -80%;
+    transition: .8s;
+    color: #fff;
+    height: 50%;
+    display: flex
+;
+    flex-direction: column;
+    justify-content: end;
+    align-items: center;
+}
+.hm-cat-wrapper:hover .hm-cat-h-wrapper-body{
+    bottom: 0%;
+    transition: .5s;
+}
+.hm-cat-wrapper .hm-cat-h-wrapper-body{
+    bottom: 0%;
+    transition: .5s;
+}
+.hm-cat-wrapper:hover img{
+    transform: scale(1.1);
+    transition: 0.3s;
+}
+.hm-cat-h-wrapper-body p:first-child{
+    font-size: 28px;
+}
+.cat-cat-btn{
+    border: 0;
+    padding: 7px 10px;
+    font-weight: 700;
+    width: 110px;
+    border-radius: 5px;
+}

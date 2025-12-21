@@ -1,0 +1,65 @@
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Overpass:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url("https://db.onlinewebfonts.com/c/41ef03052040400ec0acd500990fdc97?family=URW+Imperial+W01+Regular");
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Overpass", sans-serif;
+  scroll-behavior: smooth;
+}
+
+ul{
+  margin: 0;
+  padding: 0;
+}
+p{
+  margin: 0;
+  padding: 0;
+}
+h1,h2,h3,h4,h5,h6{
+  margin: 0;
+}
+@media (min-width: 768px) {
+  .container, .container-md, .container-sm {
+      max-width: 94%;
+  }
+}
+@media (min-width: 1200px) {
+  .container, .container-lg, .container-md, .container-sm, .container-xl {
+      max-width: 94%;
+  }
+}
+
+.btn-Shop-t{
+  background: #0f0f0f;
+  border: 1px solid #e0e0e0;
+  color: #fff;
+  padding: 8px 15px;
+  font-size: 14px;
+  font-weight: 600;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  border-radius: 4px;
+}
+.btn-Shop-t svg{
+  font-size: 18px;
+}
+
+body {
+  -ms-overflow-style: scrollbar;
+}
+body::-webkit-scrollbar-track {
+  background-color: #f5f5f5;
+}
+body::-webkit-scrollbar {
+  width: 4px;
+  background-color: #f5f5f5;
+  
+}
+body::-webkit-scrollbar-thumb {
+  background-color: #D8C3A5;
+  border-radius: 20px;
+}
+

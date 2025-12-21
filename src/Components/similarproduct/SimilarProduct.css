@@ -1,0 +1,8 @@
+.similar-product-swiper .swiper-button-prev,
+.similar-product-swiper .swiper-button-next{
+    background: #000;
+}
+.similar-product-swiper .swiper-button-prev:after,
+.similar-product-swiper .swiper-button-next:after{
+    color: #fff;
+}
