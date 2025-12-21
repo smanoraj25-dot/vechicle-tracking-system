@@ -1,6 +1,5 @@
+import { memo, useState } from "react";
 import { SlArrowDown, SlArrowUp } from "react-icons/sl";
-import { useState } from "react";
-import "../productsidebar/ProductSidebar.css";
 import PriceRangeSlider from "../../Components/productsidebar/PriceRange.jsx";
 
 const ProductSideBar = ({ filopt, title, handleChange }) => {
@@ -54,4 +53,4 @@ const ProductSideBar = ({ filopt, title, handleChange }) => {
   );
 };
 
-export default ProductSideBar;
+export default memo(ProductSideBar);

@@ -5,7 +5,7 @@ import { FaUserCircle, FaPhone } from "react-icons/fa";
 import { RiLockPasswordLine, RiLoginCircleLine } from "react-icons/ri";
 import { IoMail } from "react-icons/io5";
 import { jwtDecode } from "jwt-decode";
-import "../LoginSignup/LoginSignup.css";
+import "./style.css";
 import axios from "axios";
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
 import { Navigate, useNavigate } from "react-router-dom";
@@ -88,7 +88,7 @@ const InputField = ({
   </div>
 );
 
-const LoginSignup = () => {
+const Auth = () => {
 
   const [isLogintype, setisLogintype] = useState(true);
   const [rememberMe, setRememberMe] = useState(false);
@@ -365,4 +365,4 @@ const LoginSignup = () => {
   );
 };
 
-export default LoginSignup;
+export default Auth;
