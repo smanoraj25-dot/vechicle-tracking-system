@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
-import ReactImageMagnify from "react-image-magnify";
-// import Images
+import ZoomImage from "./ZoomImage"
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/free-mode";
@@ -13,6 +12,7 @@ import "../productdetailslider/ProductDetailSlide.css";
 import { PhotoProvider, PhotoView } from 'react-photo-view';
 import 'react-photo-view/dist/react-photo-view.css';
 import { MdOutlineZoomOutMap } from "react-icons/md";
+
 // import required modules
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 const ProductDetailSlide = ({ img = []  }) => {
@@ -75,23 +75,7 @@ const ProductDetailSlide = ({ img = []  }) => {
                 </PhotoView>
                 </div>
                 
-                <ReactImageMagnify
-                  {...{
-                    smallImage: {
-                      alt: `product${index}`, // ✅ Fixed string interpolation
-                      isFluidWidth: true,
-                      src: item.url,
-                    },
-                    largeImage: {
-                      src: item.url,
-                      width: 900,
-                      height: 1000,
-                    },
-                    enlargedImageContainerClassName: "custom-large-image", // Add custom class
-                    ensmallImageContainerClassName: "custom-small-image", // Add custom class
-                  }}
-                />
-                
+              <ZoomImage src={item.url} index={index}/>
                 
               </SwiperSlide>
             ))}

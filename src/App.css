@@ -23,3 +23,24 @@
 .image_viewer-ch button:hover{
     opacity: 1;
 }
+
+
+.iiz {
+  max-width: 100%;
+  position: relative;
+}
+
+.iiz__img {
+  max-width: 100%;
+  display: block;
+}
+
+.iiz__zoom-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: auto;
+  max-width: none;
+  z-index: 10;
+  pointer-events: none;
+}

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import InnerImageZoom from 'react-inner-image-zoom';
-import 'react-inner-image-zoom/lib/inner-image-zoom.css';
+// import 'react-inner-image-zoom/lib/inner-image-zoom.css';
 
 import SimilarProduct from "../../Components/similarproduct/SimilarProduct";
 import { useAddToWishlistMutation, useRemoveFromWishlistMutation } from '../../features/products/wishlistApi';
@@ -13,6 +13,7 @@ import { IoCart } from "react-icons/io5";
 import { FaHeart } from "react-icons/fa";
 import { MdRemoveShoppingCart } from "react-icons/md";
 import "./ProductDetail.css";
+import ProductDetailSlide from "../../Components/productdetailslider/ProductDetailSlide";
 
 const ProductDetail = () => {
     const { id } = useParams();
@@ -77,8 +78,8 @@ const ProductDetail = () => {
             <section className="prdt-sec-1-wrapper">
                 <div className="container">
                     <div className="row">
-                        <div className="col-md-5">
-                            <InnerImageZoom src={productItem.images[0]} zoomSrc={productItem.images[0]} />
+                        <div className="col-md-5">  
+                            <ProductDetailSlide img={productItem.images} />
                         </div>
                         <div className="col-md-7">
                             <h3 className="pro-det-h-title">{productItem.name}</h3>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "../productsidebar/PriceRange.css";
+import "./PriceRange.css";
 
 const PriceRangeSlider = ({ min = 0, max = 10000, onChange }) => {
   const [range, setRange] = useState([min, max]);

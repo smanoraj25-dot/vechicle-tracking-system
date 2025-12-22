@@ -1,7 +1,7 @@
 import { memo, useState } from "react";
 import { SlArrowDown, SlArrowUp } from "react-icons/sl";
 import PriceRangeSlider from "../../Components/productsidebar/PriceRange.jsx";
-
+import "./ProductSideBar.css"
 const ProductSideBar = ({ filopt, title, handleChange }) => {
   const [isExpanded, setIsExpanded] = useState(true);
 

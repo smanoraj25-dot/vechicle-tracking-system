@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 import axios from "axios";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
-
+import "./Items.css"
 const Items = ({ prdts }) => {
   const API_URL = import.meta.env.VITE_BACKENDURL;
   const dispatch = useDispatch();
