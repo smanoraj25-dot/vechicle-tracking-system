@@ -13,11 +13,11 @@ const Cartslice = createSlice({
     initialState,
     reducers: {
         addToCart: (state, action) => {
-            const product = action.payload;
-            if (!product) return;
-            const existingProduct = state.carts.find(item => item.product_id === product?.product_id);
+            const productId = action.payload;
+            if (!productId) return;
+            const existingProduct = state.carts.find(item => item === productId);
             if (!existingProduct) {
-                state.carts.push(product);
+                state.carts.push({product_id:productId});
             }
             setGuestCart(state.carts);
         },

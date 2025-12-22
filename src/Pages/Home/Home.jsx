@@ -1,4 +1,4 @@
-import React, { useCallback, memo } from "react";
+import { useCallback, memo } from "react";
 import { useNavigate } from "react-router-dom";
 import HomeCategory from "../../Components/homecategories/HomeCategory";
 import HomeSlider from "../../Components/homeslider/HomeSlider";

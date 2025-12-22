@@ -21,8 +21,9 @@ import {
     useVerifyCodeMutation,
     useLazyGetUserQuery,
 } from "../../features/users/authApi.js";
+import { useAddToWishlistMutation } from "../../features/products/wishlistApi";
+import { useAddToCartMutation } from "../../features/products/cartApi.js";
 
-const API_URL = import.meta.env.VITE_BACKENDURL;
 const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID || "";
 
 const GoogleLoginButton = () => {
@@ -90,6 +91,8 @@ const Auth = () => {
   const [sendVerificationCode] = useSendVerificationCodeMutation();
   const [verifyCode] = useVerifyCodeMutation();
   const [getUser] = useLazyGetUserQuery();
+  const [addToWishlistMutation] =useAddToWishlistMutation()
+  const [addToCartMutation]=useAddToCartMutation();
   const [isLogintype, setisLogintype] = useState(true);
   const [rememberMe, setRememberMe] = useState(false);
   const [formData, setFormData] = useState({
@@ -157,8 +160,8 @@ const Auth = () => {
 
       const { user } = await getUser().unwrap();
 
-      await mergeGuestWishlist(user.id);
-      await mergeGuestCart(user.id);
+      await mergeGuestWishlist(addToWishlistMutation,user.id);
+      await mergeGuestCart(addToCartMutation,user.id);
 
       navigate("/Account");
 

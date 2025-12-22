@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  useState  from "react";
 import { useLocation, Navigate } from "react-router-dom";
 import useShippingHandling from "../../hooks/useShippingHandling";
 import ShippingForm from "../../Components/shippingform/ShippingForm";
@@ -29,10 +29,16 @@ function Checkout() {
         return <Navigate to="/cart" replace />;
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit =async (e) => {
         e.preventDefault();
         if (validateForm()) {
+            const loaded = await loadRazorpay();
+            if (!loaded) {
+                alert("Razorpay SDK failed to load");
+                return;
+            }
             setShowPayment(true);
+            
         }
     };
 

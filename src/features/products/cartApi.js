@@ -24,7 +24,7 @@ export const cartApi = createApi({
                     return { data: {} };
                 }
                 const result = await baseQuery({
-                    url: 'addtocart',
+                    url: 'addtocart/add',
                     method: 'POST',
                     body: { productId, userId },
                 });
@@ -37,8 +37,9 @@ export const cartApi = createApi({
                     return { data: {} };
                 }
                 const result = await baseQuery({
-                    url: `addtocart/${productId}`,
+                    url: `addtocart/remove`,
                     method: 'DELETE',
+                    body: { productId, userId },
                 });
                 return result;
             },

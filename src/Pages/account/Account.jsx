@@ -3,12 +3,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { clearUser } from '../../features/users/authSlice';
+import { clearAuth } from '../../features/users/authSlice';
 import { setCart } from '../../features/products/AddtoCardSlice';
 import { setWishlist } from '../../features/products/WishlistSlice';
 
 import { useGetOrdersQuery } from '../../features/products/orderApi';
-import { useUpdateUserMutation, useLogoutMutation } from '../../features/users/authApi';
+import { useUpdateUserMutation } from '../../features/users/authApi';
 
 import Orderdetail from '../../Components/orderdetail/Orderdetail';
 
@@ -24,7 +24,6 @@ const Account = () => {
 
     const { data: yourOrders } = useGetOrdersQuery(user?.id, { skip: !user?.id });
     const [updateUser] = useUpdateUserMutation();
-    const [logout] = useLogoutMutation();
 
     const [userdetail, setUserdetail] = useState(user || {});
     const [userdetailerror, setUserdetailerror] = useState({});
@@ -35,9 +34,8 @@ const Account = () => {
 
     const handlelogOut = async () => {
         try {
-            await logout().unwrap();
             localStorage.removeItem('token');
-            dispatch(clearUser(null));
+            dispatch(clearAuth(null));
             dispatch(setCart([]));
             dispatch(setWishlist([]));
             toast.success('Logged out successfully!');

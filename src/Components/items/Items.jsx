@@ -14,7 +14,7 @@ const Items = ({ prdts }) => {
   const navigate = useNavigate();
 
   const { wishlist } = useSelector((state) => state.wishlist);
-  const { isLogin, user } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
 
   const [addToWishlistMutation] = useAddToWishlistMutation();
   const [removeFromWishlistMutation] = useRemoveFromWishlistMutation();
@@ -23,16 +23,16 @@ const Items = ({ prdts }) => {
 
   const handleClick = useCallback(() => {
     navigate(`/product-details/${prdts.id}`);
-  }, [navigate, prdts.id]);
+  }, [navigate, prdts?.id]);
 
   const toggleWishlist = useCallback(async () => {
     try {
       if (isWishlisted) {
-        dispatch(removeFromWishlist({ product_id: prdts.id }));
+        dispatch(removeFromWishlist(prdts.id));
         await removeFromWishlistMutation({ productId: prdts.id, userId: user?.id }).unwrap();
         toast.success("Removed from Wishlist ❤");
       } else {
-        dispatch(addToWishlist({ product_id: prdts.id }));
+        dispatch(addToWishlist(prdts.id));
         await addToWishlistMutation({ productId: prdts.id, userId: user?.id }).unwrap();
         toast.success("Added to Wishlist ❤");
       }

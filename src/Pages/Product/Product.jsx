@@ -94,7 +94,7 @@ const Product = () => {
           >
             <h2 className="filter-heading">
               <span>🔍</span> Filter
-              <MdClose onClick={() => setIsMobileFilterOpen(false)} />
+              <MdClose onClick={() => setIsMobileFilterOpen(false)} style={{ "fontSize": "30px","position": "absolute","right": "1px","top": "3px"}} />
             </h2>
             {["price", "category", "material"].map((title) => (
               <ProductSideBar

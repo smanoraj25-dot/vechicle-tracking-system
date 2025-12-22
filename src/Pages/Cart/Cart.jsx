@@ -1,7 +1,6 @@
-import React, { useState, useMemo, useCallback, memo } from "react";
+import { useState, useMemo, useCallback, memo } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
 import { toast } from "react-toastify";
 
 import { removeFromCart } from "../../features/products/AddtoCardSlice";
@@ -14,18 +13,18 @@ import emptyCartImg from "../../assets/images/wishlist/empty-cart.png";
 
 import "./Cart.css";
 import "../wishlist/Wishlist.css";
+import { useRemoveFromCartMutation } from "../../features/products/cartApi";
 
-const API_URL = import.meta.env.VITE_BACKENDURL;
 
 const Cart = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-
+    const [removeCartMutation] = useRemoveFromCartMutation();
     const { isLogin, user } = useSelector((state) => state.auth);
     const { carts } = useSelector((state) => state.carts);
     const { products } = useSelector((state) => state.products);
     const [showModal, setShowModal] = useState(false);
-
+    
     const cartItems = useMemo(() => {
         if (!products?.length || !carts?.length) return [];
         const cartProductIds = new Set(carts.map((item) => item.product_id));
@@ -48,13 +47,10 @@ const Cart = () => {
     }, [cartItems]);
 
     const handleRemoveCart = useCallback(async (itemId) => {
-        dispatch(removeFromCart({ product_id: itemId }));
+        dispatch(removeFromCart(itemId));
+    
         try {
-            if (isLogin) {
-                await axios.delete(`${API_URL}/api/addtocart/remove`, {
-                    data: { userId: user.id, productId: itemId },
-                });
-            }
+            await removeCartMutation({ productId: itemId, userId: user?.id }).unwrap();
             toast.success("Item removed from cart");
         } catch (error) {
             console.error("Error removing item: ", error);
@@ -74,7 +70,7 @@ const Cart = () => {
     const handleCheckout = () => {
         setShowModal(true);
     };
-
+ 
     if (cartItems.length === 0) {
         return (
             <section className="wishList-empty">

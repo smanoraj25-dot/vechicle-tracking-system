@@ -34,12 +34,6 @@ const authSlice = createSlice({
                 state.user = action.payload.user;
                 state.isLogin = true;
             })
-            .addMatcher(authApi.endpoints.logout.matchFulfilled, (state) => {
-                state.user = null;
-                state.isLogin = false;
-                state.token = null;
-                localStorage.removeItem('token');
-            });
     },
 });
 

@@ -1,6 +1,5 @@
-import axios from "axios";
-const API_URL = import.meta.env.VITE_BACKENDURL;
-// src/utils/localStorage.js
+// LSWishlistAddRemove.js
+
 export const getGuestWishlist = () =>
   JSON.parse(localStorage.getItem("guest_wishlist")) || [];
 
@@ -10,20 +9,17 @@ export const setGuestWishlist = (wishlist) =>
 export const clearGuestWishlist = () =>
   localStorage.removeItem("guest_wishlist");
 
-export const mergeGuestWishlist = async (userId) => {
-  const guestWishlist =
-    JSON.parse(localStorage.getItem("guest_wishlist")) || [];
+export const mergeGuestWishlist = async (addToWishlist, userId) => {
+  const guestWishlist = getGuestWishlist();
 
   if (!guestWishlist.length) return;
 
-  for (const productId of guestWishlist) {
+  for (const item of guestWishlist) {
     try {
-      await axios.post(`${API_URL}/api/wishlist/add`, {
+      await addToWishlist({
+        productId: item.product_id,
         userId:userId,
-        productId: productId.product_id,
-      });
-      console.log("called wishlist");
-      
+      }).unwrap();
     } catch (err) {
       console.error("Wishlist merge failed:", err);
     }

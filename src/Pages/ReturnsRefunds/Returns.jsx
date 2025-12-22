@@ -1,4 +1,3 @@
-import React from "react";
 import "./Returns.css";
 
 function Returns() {

@@ -13,18 +13,18 @@ const wishlistSlice = createSlice({
     initialState,
     reducers: {
         addToWishlist: (state, action) => {
-            const product = action.payload;
-            if (!product) return;
-            const existingProduct = state.wishlist.find(item => item.product_id === product.product_id);
+            const productId = action.payload;
+            if (!productId) return;
+            const existingProduct = state.wishlist.find(item => item.product_id === productId);
             if (!existingProduct) {
-                state.wishlist.push(product);
+                state.wishlist.push({product_id:productId});
             }
             setGuestWishlist(state.wishlist);
         },
         removeFromWishlist: (state, action) => {
             const productId = action.payload;
             if (!productId) return;
-            state.wishlist = state.wishlist.filter(item => item.product_id !== productId.product_id);
+            state.wishlist = state.wishlist.filter(item => item.product_id !== productId);
             setGuestWishlist(state.wishlist);
         },
         setWishlist: (state, action) => {

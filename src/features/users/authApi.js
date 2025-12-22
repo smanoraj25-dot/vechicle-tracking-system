@@ -43,12 +43,7 @@ export const authApi = createApi({
                body: data,
            }),
        }),
-        logout: builder.mutation({
-            query: () => ({
-                url: 'logout',
-                method: 'POST',
-            }),
-        }),
+       
         getUser: builder.query({
             query: () => ({
                 url: 'validate-token',

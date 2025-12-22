@@ -1,12 +1,12 @@
 
-import { Link } from "react-router-dom"
+import  {Link}  from "react-router-dom"
 //images
 import logo from "../../assets/images/logo-1.png"
 import footerLogo from "../../assets/images/footer-logo.png"
 //icons
-import { IoLocationSharp } from "react-icons/io5";
-import { FaPhoneAlt } from "react-icons/fa";
-import { MdEmail } from "react-icons/md";
+import  {IoLocationSharp}  from "react-icons/io5";
+import  {FaPhoneAlt}  from "react-icons/fa";
+import  {MdEmail}  from "react-icons/md";
 //css
 import "../Footer/Footer.css";
 

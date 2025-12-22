@@ -1,9 +1,7 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import InnerImageZoom from 'react-inner-image-zoom';
-// import 'react-inner-image-zoom/lib/inner-image-zoom.css';
 
 import SimilarProduct from "../../Components/similarproduct/SimilarProduct";
 import { useAddToWishlistMutation, useRemoveFromWishlistMutation } from '../../features/products/wishlistApi';
@@ -14,13 +12,14 @@ import { FaHeart } from "react-icons/fa";
 import { MdRemoveShoppingCart } from "react-icons/md";
 import "./ProductDetail.css";
 import ProductDetailSlide from "../../Components/productdetailslider/ProductDetailSlide";
-
+import { removeFromWishlist,addToWishlist } from "../../features/products/WishlistSlice";
+import { addToCart } from "../../features/products/AddtoCardSlice";
 const ProductDetail = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const { isLogin, user } = useSelector((state) => state.auth);
+    const { user } = useSelector((state) => state.auth);
     const productItem = useSelector((state) =>
         state.products.products.find((item) => item.id === id)
     );
@@ -28,45 +27,48 @@ const ProductDetail = () => {
         state.wishlist.wishlist.some(item => item.product_id === id)
     );
     const isAddedToCart = useSelector((state) =>
-        state.carts.carts.some(cart => cart.product_id === id)
+        state.carts.carts.some(cart => cart === id)
     );
 
-    const [addToWishlist] = useAddToWishlistMutation();
-    const [removeFromWishlist] = useRemoveFromWishlistMutation();
-    const [addToCart] = useAddToCartMutation();
+    const [ addToWishlistMutation ] = useAddToWishlistMutation();
+    const [ removeFromWishlistMutation ] = useRemoveFromWishlistMutation();
+    const [ addToCartMutation ] = useAddToCartMutation();
 
     const handleToggleWishlist = useCallback(async () => {
         if (!productItem) return;
         try {
+          
             if (isWishlisted) {
-                await removeFromWishlist(productItem.id).unwrap();
+                dispatch(removeFromWishlist(productItem.id))
+                await removeFromWishlistMutation({userId: user?.id, productId: productItem.id}).unwrap();
                 toast.success("Removed from Wishlist ❤");
             } else {
-                await addToWishlist({ userId: user?.id, productId: productItem.id }).unwrap();
+                dispatch(addToWishlist(productItem.id))
+                await addToWishlistMutation({ userId: user?.id, productId: productItem.id }).unwrap();
                 toast.success("Added to Wishlist ❤");
             }
         } catch (err) {
             toast.error('Failed to update wishlist');
         }
-    }, [isWishlisted, productItem, user?.id, addToWishlist, removeFromWishlist]);
+    }, [isWishlisted, productItem, user?.id, addToWishlistMutation, removeFromWishlistMutation]);
 
     const handleAddToCart = useCallback(async () => {
         if (!productItem) return;
-
+        dispatch(addToCart(productItem.id))
         if (isAddedToCart) {
             navigate("/cart");
             return;
         }
 
         try {
-            await addToCart({ userId: user?.id, productId: productItem.id }).unwrap();
+            await addToCartMutation({ userId: user?.id, productId: productItem.id }).unwrap();
             toast.success("Added to cart ❤");
             navigate("/cart");
         } catch (err) {
             toast.error("Failed to add to cart");
         }
 
-    }, [isAddedToCart, productItem, addToCart, user?.id, navigate]);
+    }, [isAddedToCart, productItem, addToCartMutation, user?.id, navigate]);
 
 
     if (!productItem) {

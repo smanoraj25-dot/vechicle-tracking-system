@@ -1,8 +1,3 @@
-import axios from "axios";
-
-const API_URL = import.meta.env.VITE_BACKENDURL;
-
-// Safely get guest cart from localStorage
 export const getGuestCart = () => {
     try {
         const cart = localStorage.getItem("guest_cart");
@@ -34,24 +29,18 @@ export const clearGuestCart = () => {
 };
 
 // Merge guest cart with user's cart on login
-export const mergeGuestCart = async (userId, userCart) => {
+export const mergeGuestCart = async (addToCartMutation,userId) => {
     const guestCart = getGuestCart();
     if (!guestCart.length) return;
 
-    const userCartProductIds = new Set(userCart.map(item => item.product_id));
-
     for (const item of guestCart) {
-        if (!userCartProductIds.has(item.product_id)) {
             try {
-                await axios.post(`${API_URL}/api/cart/add`, {
-                    userId,
-                    productId: item.product_id,
-                });
+                await addToCartMutation({ userId:userId, productId: item.product_id}).unwrap();
+                
             } catch (err) {
                 console.error("Cart merge failed for item:", item.product_id, err);
             }
         }
-    }
 
     clearGuestCart();
 };

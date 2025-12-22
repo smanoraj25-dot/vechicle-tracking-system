@@ -1,7 +1,7 @@
 import axios from "axios";
-import { useState } from "react";
-import { IoClose } from "react-icons/io5";
-import { FaSearch } from "react-icons/fa";
+import  {useState}  from "react";
+import  {IoClose}  from "react-icons/io5";
+import  {FaSearch}  from "react-icons/fa";
 import "./search.css"
 
 function NavbarSearch({setSearchtoggle,searchtoggle}) {
