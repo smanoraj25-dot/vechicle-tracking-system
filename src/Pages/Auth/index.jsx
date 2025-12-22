@@ -21,8 +21,8 @@ import {
     useVerifyCodeMutation,
     useLazyGetUserQuery,
 } from "../../features/users/authApi.js";
-import { useAddToWishlistMutation } from "../../features/products/wishlistApi";
-import { useAddToCartMutation } from "../../features/products/cartApi.js";
+import { useAddToWishlistMutation, useGetWishlistQuery } from "../../features/products/wishlistApi";
+import { useAddToCartMutation, useGetCartQuery } from "../../features/products/cartApi.js";
 
 const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID || "";
 
@@ -103,7 +103,9 @@ const Auth = () => {
   });
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
-  const { isLogin } = useSelector((state) => state.auth);
+  const { isLogin, user } = useSelector((state) => state.auth);
+  const { data: wishlist } = useGetWishlistQuery(user?.id, { skip: !user });
+  const { data: cart } = useGetCartQuery(user?.id, { skip: !user });
   const [popuptoggle, setPopuptoggle] = useState(false);
   const [verificationCode, setVerificationCode] = useState("");
   const [isemailverify, setIsemailverify] = useState(false);
@@ -160,8 +162,8 @@ const Auth = () => {
 
       const { user } = await getUser().unwrap();
 
-      await mergeGuestWishlist(addToWishlistMutation,user.id);
-      await mergeGuestCart(addToCartMutation,user.id);
+      await mergeGuestWishlist(addToWishlistMutation, user.id, wishlist || []);
+      await mergeGuestCart(addToCartMutation, user.id, cart || []);
 
       navigate("/Account");
 

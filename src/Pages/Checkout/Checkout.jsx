@@ -1,10 +1,26 @@
-import  useState  from "react";
+import { useState } from "react";
 import { useLocation, Navigate } from "react-router-dom";
 import useShippingHandling from "../../hooks/useShippingHandling";
 import ShippingForm from "../../Components/shippingform/ShippingForm";
 import Summary from "../../Components/summary/Summary";
 import RazorpayPayment from "../RazorpayPayment/RazorpayPayment";
 import "../Checkout/Checkout.css";
+
+const loadRazorpay = () => {
+    return new Promise((resolve) => {
+        if (window.Razorpay) {
+            resolve(true);
+            return;
+        }
+
+        const script = document.createElement("script");
+        script.src = "https://checkout.razorpay.com/v1/checkout.js";
+        script.async = true;
+        script.onload = () => resolve(true);
+        script.onerror = () => resolve(false);
+        document.body.appendChild(script);
+    });
+};
 
 function Checkout() {
     const location = useLocation();
@@ -29,7 +45,7 @@ function Checkout() {
         return <Navigate to="/cart" replace />;
     }
 
-    const handleSubmit =async (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if (validateForm()) {
             const loaded = await loadRazorpay();
@@ -38,7 +54,6 @@ function Checkout() {
                 return;
             }
             setShowPayment(true);
-            
         }
     };
 

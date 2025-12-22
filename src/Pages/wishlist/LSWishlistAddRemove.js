@@ -9,12 +9,14 @@ export const setGuestWishlist = (wishlist) =>
 export const clearGuestWishlist = () =>
   localStorage.removeItem("guest_wishlist");
 
-export const mergeGuestWishlist = async (addToWishlist, userId) => {
+export const mergeGuestWishlist = async (addToWishlist, userId, userWishlist) => {
   const guestWishlist = getGuestWishlist();
 
   if (!guestWishlist.length) return;
 
   for (const item of guestWishlist) {
+    if (userWishlist.some(i => i.product_id === item.product_id)) continue;
+
     try {
       await addToWishlist({
         productId: item.product_id,

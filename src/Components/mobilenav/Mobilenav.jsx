@@ -1,4 +1,4 @@
-
+import React from 'react';
 import { Link } from "react-router-dom"
 import { AiOutlineHome } from "react-icons/ai";
 import { MdOutlineShoppingBag } from "react-icons/md";

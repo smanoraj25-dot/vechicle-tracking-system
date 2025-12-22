@@ -15,6 +15,7 @@ const Product = () => {
   const [selectedFilters, setSelectedFilters] = useState({ category: [], material: [], color: [], size: [] });
   const [priceRange, setPriceRange] = useState([0, 0]);
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const handleFilterChange = useCallback((e) => {
     const { name, value, checked } = e.target;
@@ -24,6 +25,10 @@ const Product = () => {
         ? [...prev[name], value]
         : prev[name].filter((v) => v !== value),
     }));
+  }, []);
+
+  const handleSearchChange = useCallback((e) => {
+    setSearchTerm(e.target.value);
   }, []);
 
   const filteredProducts = useMemo(() => {
@@ -39,6 +44,12 @@ const Product = () => {
       );
     }
 
+    if (searchTerm) {
+      filtered = filtered.filter((product) =>
+        product.name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
+
     Object.entries(selectedFilters).forEach(([key, values]) => {
       if (values.length) {
         filtered = filtered.filter((product) =>
@@ -50,7 +61,7 @@ const Product = () => {
     });
 
     return filtered;
-  }, [products, category, selectedFilters, priceRange]);
+  }, [products, category, selectedFilters, priceRange, searchTerm]);
 
   const getUniqueValues = useMemo(
     () => (key) =>
@@ -84,19 +95,22 @@ const Product = () => {
       </button>
       <div className="row">
         <div
-          className={`col-lg-3 mobile-filter-menu ${
-            isMobileFilterOpen ? "open" : ""
-          }`}
+          className={"col-lg-3 mobile-filter-menu " + (isMobileFilterOpen ? "open" : "")}
         >
           <div
             className="container-sticky filterScroll"
-            style={{ height: `${window.innerHeight - 50}px`, overflow: "scroll" }}
+            style={{ height: (window.innerHeight - 50) + 'px', overflow: "scroll" }}
           >
             <h2 className="filter-heading">
               <span>🔍</span> Filter
-              <MdClose onClick={() => setIsMobileFilterOpen(false)} style={{ "fontSize": "30px","position": "absolute","right": "1px","top": "3px"}} />
+              <MdClose onClick={() => setIsMobileFilterOpen(false)} style={{ fontSize: "30px", position: "absolute", right: "1px", top: "3px"}} />
             </h2>
-            {["price", "category", "material"].map((title) => (
+            <ProductSideBar
+                key="search"
+                title="search"
+                handleSearch={handleSearchChange}
+              />
+            {['price', 'category', 'material'].map((title) => (
               <ProductSideBar
                 key={title}
                 filopt={
@@ -123,7 +137,7 @@ const Product = () => {
                 <FaSearchMinus className="not-found-icon" />
                 <h2>Oops! No Sarees Found</h2>
                 <p>
-                  We couldn't find any sarees based on your search. Please try
+                  We couldn\'t find any sarees based on your search. Please try
                   again with different keywords or filters.
                 </p>
               </div>

@@ -2,7 +2,7 @@ import { memo, useState } from "react";
 import { SlArrowDown, SlArrowUp } from "react-icons/sl";
 import PriceRangeSlider from "../../Components/productsidebar/PriceRange.jsx";
 import "./ProductSidebar.css"
-const ProductSideBar = ({ filopt, title, handleChange }) => {
+const ProductSideBar = ({ filopt, title, handleChange, handleSearch }) => {
   const [isExpanded, setIsExpanded] = useState(true);
 
   const toggleExpansion = () => {
@@ -18,9 +18,16 @@ const ProductSideBar = ({ filopt, title, handleChange }) => {
 
       {isExpanded && (
         <div
-          className={`category-list ${title === "color" ? "color-list" : ""}`}
-        >
-          {title !== "price" ? (
+          className={`category-list ${title === "color" ? "color-list" : ""}`}>
+          {title === "price" ? (
+            <PriceRangeSlider
+              max={filopt[0]}
+              min={filopt[1]}
+              onChange={handleChange}
+            />
+          ) : title === "search" ? (
+            <input type="text" placeholder="Search by name..." onChange={handleSearch} style={{width: "100%", border: "1px solid #ccc", padding: "5px"}}/>
+          ) : (
             <ul>
               {filopt.map((category) => (
                 <li key={category} className="category-item">
@@ -40,12 +47,6 @@ const ProductSideBar = ({ filopt, title, handleChange }) => {
                 </li>
               ))}
             </ul>
-          ) : (
-            <PriceRangeSlider
-              max={filopt[0]}
-              min={filopt[1]}
-              onChange={handleChange}
-            />
           )}
         </div>
       )}

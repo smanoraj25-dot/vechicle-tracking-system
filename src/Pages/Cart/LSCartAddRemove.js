@@ -29,18 +29,19 @@ export const clearGuestCart = () => {
 };
 
 // Merge guest cart with user's cart on login
-export const mergeGuestCart = async (addToCartMutation,userId) => {
+export const mergeGuestCart = async (addToCartMutation, userId, userCart) => {
     const guestCart = getGuestCart();
     if (!guestCart.length) return;
 
     for (const item of guestCart) {
-            try {
-                await addToCartMutation({ userId:userId, productId: item.product_id}).unwrap();
-                
-            } catch (err) {
-                console.error("Cart merge failed for item:", item.product_id, err);
-            }
+        if (userCart.some(i => i.product_id === item.product_id)) continue;
+        try {
+            await addToCartMutation({ userId:userId, productId: item.product_id}).unwrap();
+            
+        } catch (err) {
+            console.error("Cart merge failed for item:", item.product_id, err);
         }
+    }
 
     clearGuestCart();
 };
