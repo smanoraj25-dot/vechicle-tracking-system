@@ -7,6 +7,7 @@ import { productApi } from '../features/products/productApi';
 import { cartApi } from '../features/products/cartApi';
 import { wishlistApi } from '../features/products/wishlistApi';
 import { authApi } from '../features/users/authApi';
+import { orderApi } from '../features/products/orderApi';
 
 export const store = configureStore({
     reducer: {
@@ -18,12 +19,14 @@ export const store = configureStore({
         [cartApi.reducerPath]: cartApi.reducer,
         [wishlistApi.reducerPath]: wishlistApi.reducer,
         [authApi.reducerPath]: authApi.reducer,
+        [orderApi.reducerPath]: orderApi.reducer,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware().concat(
             productApi.middleware,
             cartApi.middleware,
             wishlistApi.middleware,
-            authApi.middleware
+            authApi.middleware,
+            orderApi.middleware
         ),
 });

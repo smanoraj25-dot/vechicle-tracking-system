@@ -50,8 +50,17 @@ export const authApi = createApi({
             }),
         }),
         getUser: builder.query({
-            query: () => 'validate-token',
-            method: 'POST',
+            query: () => ({
+                url: 'validate-token',
+                method: 'POST',
+            }),
+        }),
+        updateUser: builder.mutation({
+            query: (userInfo) => ({
+                url: 'update-user',
+                method: 'PUT',
+                body: userInfo,
+            }),
         }),
     }),
 });
@@ -63,4 +72,6 @@ export const {
     useVerifyCodeMutation,
     useLogoutMutation,
     useLazyGetUserQuery,
+    useGetUserQuery,
+    useUpdateUserMutation,
 } = authApi;
