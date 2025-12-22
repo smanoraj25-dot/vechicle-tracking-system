@@ -5,6 +5,8 @@ import { addToWishlist, removeFromWishlist } from "../../features/products/Wishl
 import { useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
 import axios from "axios";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 
 const Items = ({ prdts }) => {
   const API_URL = import.meta.env.VITE_BACKENDURL;
@@ -52,10 +54,11 @@ const Items = ({ prdts }) => {
         <FaHeart className={isWishlisted ? "wishlist-heart" : ""} />
       </div>
       <div className="product-img" onClick={handleClick}>
-        <img
+        <LazyLoadImage
           src={prdts?.images[0]?.url}
           alt="Aila organza"
-          loading="lazy"
+          effect="blur"
+          placeholderSrc="/path/to/your/placeholder.jpg" // Add a placeholder image
           className="img-fluid"
         />
       </div>
