@@ -34,7 +34,7 @@ const SimilarProduct = ({ productItem }) => {
                 pagination={{
                     clickable: false,
                 }}
-                navigation={false}
+                navigation={true}
                 breakpoints={{
                     380: {
                         slidesPerView: 2,
@@ -53,7 +53,7 @@ const SimilarProduct = ({ productItem }) => {
                         spaceBetween: 50,
                     },
                 }}
-                modules={[Autoplay, Navigation]}
+                modules={[Autoplay, Pagination, Navigation]}
                 className="mySwiper similar-product-swiper"
             >
                 {similarProducts.map((item) => (

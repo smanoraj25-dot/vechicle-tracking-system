@@ -6,3 +6,8 @@
 .similar-product-swiper .swiper-button-next:after{
     color: #fff;
 }
+
+.similar-product-swiper {
+    width: 100%;
+    padding: 20px 0;
+}
