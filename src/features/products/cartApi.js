@@ -19,26 +19,28 @@ export const cartApi = createApi({
             query: (userId) => `addtocart/${userId}`,
         }),
         addToCart: builder.mutation({
-            query: ({ productId, userId }) => {
-                if (userId) {
-                    return {
-                        url: 'addtocart',
-                        method: 'POST',
-                        body: { productId, userId },
-                    };
+            async queryFn({ productId, userId }, _queryApi, _extraOptions, baseQuery) {
+                if (!userId) {
+                    return { data: {} };
                 }
-                return null;
+                const result = await baseQuery({
+                    url: 'addtocart',
+                    method: 'POST',
+                    body: { productId, userId },
+                });
+                return result;
             },
         }),
         removeFromCart: builder.mutation({
-            query: ({ productId, userId }) => {
-                if (userId) {
-                    return {
-                        url: `addtocart/${productId}`,
-                        method: 'DELETE',
-                    };
+            async queryFn({ productId, userId }, _queryApi, _extraOptions, baseQuery) {
+                if (!userId) {
+                    return { data: {} };
                 }
-                return null;
+                const result = await baseQuery({
+                    url: `addtocart/${productId}`,
+                    method: 'DELETE',
+                });
+                return result;
             },
         }),
     }),

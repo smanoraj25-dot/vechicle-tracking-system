@@ -19,27 +19,29 @@ export const wishlistApi = createApi({
             query: (userId) => `${userId}`,
         }),
         addToWishlist: builder.mutation({
-            query: ({ productId, userId }) => {
-                if (userId) {
-                    return {
-                        url: 'add',
-                        method: 'POST',
-                        body: { productId, userId },
-                    };
+            async queryFn({ productId, userId }, _queryApi, _extraOptions, baseQuery) {
+                if (!userId) {
+                    return { data: {} }; 
                 }
-                return null;
+                const result = await baseQuery({
+                    url: 'add',
+                    method: 'POST',
+                    body: { productId, userId },
+                });
+                return result;
             },
         }),
         removeFromWishlist: builder.mutation({
-            query: ({ productId, userId }) => {
-                if (userId) {
-                    return {
-                        url: 'remove',
-                        method: 'DELETE',
-                        body: { productId, userId },
-                    };
+            async queryFn({ productId, userId }, _queryApi, _extraOptions, baseQuery) {
+                if (!userId) {
+                    return { data: {} };
                 }
-                return null;
+                const result = await baseQuery({
+                    url: 'remove',
+                    method: 'DELETE',
+                    body: { productId, userId },
+                });
+                return result;
             },
         }),
     }),
