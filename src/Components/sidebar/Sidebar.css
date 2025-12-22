@@ -1,0 +1,23 @@
+.sidebar-nav {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar-nav li {
+  padding: 10px 0;
+}
+
+.sidebar-nav a {
+  text-decoration: none;
+  color: #333;
+  font-size: 1.2rem;
+}
+
+.sidebar-wishlist a {
+  display: flex;
+  align-items: center;
+}
+
+.sidebar-wishlist svg {
+  margin-right: 5px;
+}

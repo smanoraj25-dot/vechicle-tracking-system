@@ -5,6 +5,7 @@ import Items from "../../Components/items/Items.jsx";
 import { FaSearchMinus, FaFilter } from "react-icons/fa";
 import { MdClose } from "react-icons/md";
 import { useLocation } from "react-router-dom";
+import "./Product.css";
 
 const Product = () => {
   const location = useLocation();

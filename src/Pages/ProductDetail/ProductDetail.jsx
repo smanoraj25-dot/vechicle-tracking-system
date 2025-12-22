@@ -6,7 +6,7 @@ import InnerImageZoom from 'react-inner-image-zoom';
 import 'react-inner-image-zoom/lib/inner-image-zoom.css';
 
 import SimilarProduct from "../../Components/similarproduct/SimilarProduct";
-import { useToggleWishlistMutation } from '../../features/products/wishlistApi';
+import { useAddToWishlistMutation, useRemoveFromWishlistMutation } from '../../features/products/wishlistApi';
 import { useAddToCartMutation } from '../../features/products/cartApi';
 
 import { IoCart } from "react-icons/io5";
@@ -30,15 +30,24 @@ const ProductDetail = () => {
         state.carts.carts.some(cart => cart.product_id === id)
     );
 
-    const [toggleWishlist] = useToggleWishlistMutation();
+    const [addToWishlist] = useAddToWishlistMutation();
+    const [removeFromWishlist] = useRemoveFromWishlistMutation();
     const [addToCart] = useAddToCartMutation();
 
     const handleToggleWishlist = useCallback(async () => {
         if (!productItem) return;
-        await toggleWishlist({ userId: user?.id, productId: productItem.id });
-        const successMessage = isWishlisted ? "Removed from Wishlist ❤" : "Added to Wishlist ❤";
-        toast.success(successMessage);
-    }, [isWishlisted, productItem, toggleWishlist, user?.id]);
+        try {
+            if (isWishlisted) {
+                await removeFromWishlist(productItem.id).unwrap();
+                toast.success("Removed from Wishlist ❤");
+            } else {
+                await addToWishlist({ userId: user?.id, productId: productItem.id }).unwrap();
+                toast.success("Added to Wishlist ❤");
+            }
+        } catch (err) {
+            toast.error('Failed to update wishlist');
+        }
+    }, [isWishlisted, productItem, user?.id, addToWishlist, removeFromWishlist]);
 
     const handleAddToCart = useCallback(async () => {
         if (!productItem) return;
@@ -48,9 +57,13 @@ const ProductDetail = () => {
             return;
         }
 
-        await addToCart({ userId: user?.id, productId: productItem.id });
-        toast.success("Added to cart ❤");
-        navigate("/cart");
+        try {
+            await addToCart({ userId: user?.id, productId: productItem.id }).unwrap();
+            toast.success("Added to cart ❤");
+            navigate("/cart");
+        } catch (err) {
+            toast.error("Failed to add to cart");
+        }
 
     }, [isAddedToCart, productItem, addToCart, user?.id, navigate]);
 
