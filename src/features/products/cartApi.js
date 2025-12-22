@@ -19,17 +19,27 @@ export const cartApi = createApi({
             query: (userId) => `addtocart/${userId}`,
         }),
         addToCart: builder.mutation({
-            query: (product) => ({
-                url: 'addtocart',
-                method: 'POST',
-                body: product,
-            }),
+            query: ({ productId, userId }) => {
+                if (userId) {
+                    return {
+                        url: 'addtocart',
+                        method: 'POST',
+                        body: { productId, userId },
+                    };
+                }
+                return null;
+            },
         }),
         removeFromCart: builder.mutation({
-            query: (productId) => ({
-                url: `addtocart/${productId}`,
-                method: 'DELETE',
-            }),
+            query: ({ productId, userId }) => {
+                if (userId) {
+                    return {
+                        url: `addtocart/${productId}`,
+                        method: 'DELETE',
+                    };
+                }
+                return null;
+            },
         }),
     }),
 });

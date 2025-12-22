@@ -5,7 +5,7 @@ const API_URL = import.meta.env.VITE_BACKENDURL;
 export const wishlistApi = createApi({
     reducerPath: 'wishlistApi',
     baseQuery: fetchBaseQuery({
-        baseUrl: `${API_URL}/api`,
+        baseUrl: `${API_URL}/api/wishlist`,
         prepareHeaders: (headers, { getState }) => {
             const token = getState().auth.token;
             if (token) {
@@ -16,20 +16,31 @@ export const wishlistApi = createApi({
     }),
     endpoints: (builder) => ({
         getWishlist: builder.query({
-            query: (userId) => `wishlist/${userId}`,
+            query: (userId) => `${userId}`,
         }),
         addToWishlist: builder.mutation({
-            query: (product) => ({
-                url: 'wishlist',
-                method: 'POST',
-                body: product,
-            }),
+            query: ({ productId, userId }) => {
+                if (userId) {
+                    return {
+                        url: 'add',
+                        method: 'POST',
+                        body: { productId, userId },
+                    };
+                }
+                return null;
+            },
         }),
         removeFromWishlist: builder.mutation({
-            query: (productId) => ({
-                url: `wishlist/${productId}`,
-                method: 'DELETE',
-            }),
+            query: ({ productId, userId }) => {
+                if (userId) {
+                    return {
+                        url: 'remove',
+                        method: 'DELETE',
+                        body: { productId, userId },
+                    };
+                }
+                return null;
+            },
         }),
     }),
 });

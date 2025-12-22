@@ -1,8 +1,9 @@
-
-import { Link, NavLink } from "react-router-dom"
-import { useState } from "react";
+import { Link, NavLink } from "react-router-dom";
+import { useState, useCallback } from "react";
 import { useSelector } from "react-redux";
 import Mobilenav from "../mobilenav/Mobilenav";
+import Marquee from "../marquee/Marquee";
+
 //Css
 import "../NavBar/Navbar.css";
 
@@ -27,13 +28,17 @@ const Navbar = () => {
 
     const [searchtoggle, setSearchtoggle] = useState(false)
     const [toggle, setToggle] = useState(false)
-    const handelnavclose = () => { setToggle(!toggle) }
+
+    const handelnavclose = useCallback(() => { setToggle(t => !t) }, []);
     const { isLogin } = useSelector((state) => state.auth);
-    const handelNavigation = (itemcategory) => {
+    const handelNavigation = useCallback((itemcategory) => {
         navigate("/product", { state: { category: itemcategory } });
-        // handelnavclose()
         setToggle(false)
-    }
+    }, [navigate]);
+
+    const handleSearchToggle = useCallback(() => {
+        setSearchtoggle(prev => !prev);
+    }, []);
 
     return (
         <header>
@@ -66,7 +71,7 @@ const Navbar = () => {
                         </div>
                         <div className='col-md-4 col-5 text-end'>
                             <ul className='nav-ul-wrapper justify-content-end nav-c-icon'>
-                                <li className='nav-item d-md-block d-none'><p className='nav-link' onClick={() => setSearchtoggle(!searchtoggle)}><FaSearch /></p></li>
+                                <li className='nav-item d-md-block d-none'><p className='nav-link' onClick={handleSearchToggle}><FaSearch /></p></li>
                                 <li className='nav-item d-md-block d-none'><Link to={!isLogin?"/login":"/Account"} className='nav-link '><FaRegUserCircle /></Link></li>
                                 <li className='nav-item'><Link to="/cart" className='nav-link prod-count'><MdOutlineShoppingCart /> <span className="prod-count-num">{addedcart}</span></Link></li>
                                 <li className='nav-item'><Link to="/wishlist" className='nav-link  prod-count'><FaRegHeart /> <span className="prod-count-num">{wishlist}</span></Link></li>
@@ -95,18 +100,6 @@ const Navbar = () => {
                                     </ul>
                                 </div>
                             </li>
-                            {/* <li className='nav-item nav-drop-parent'><p className='nav-link'>Shop by occasion <IoIosArrowDown /></p>
-                                <div className="pos-nav-drop">
-                                    <ul className="nav-dropdown-ul nav-ul-wrapper ">
-                                        <li className="nav-item"><p onClick={() => handelNavigation("Wedding")} className="nav-link">Wedding / Reception</p></li>
-                                        <li className="nav-item"><p onClick={() => handelNavigation("Engagement")} className="nav-link">Engagement</p></li>
-                                        <li className="nav-item"><p onClick={() => handelNavigation("Haldi")} className="nav-link">
-                                            Haldi / Mehendi</p></li>
-                                        <li className="nav-item"><p onClick={() => handelNavigation("Sangeet")} className="nav-link">Sangeet and Cocktail</p></li>
-                                        <li className="nav-item"><p onClick={() => handelNavigation("Wedding")} className="nav-link">Wedding Guest</p></li>
-                                    </ul>
-                                </div>
-                            </li> */}
                             <li className='nav-item'><NavLink to="/contact" onClick={handelnavclose} className='nav-link'>Contact</NavLink></li>
                             <li className='nav-item nav-drop-parent'><p  className='nav-link'>About<IoIosArrowDown /></p>
                                 <div className="pos-nav-drop">
@@ -126,18 +119,4 @@ const Navbar = () => {
     )
 }
 
-function Marquee() {
-  return (
-    <div className="marquee">
-      <span>
-        seelaikaari.com&nbsp;&nbsp;&nbsp;&nbsp;•&nbsp;Silk Sarees&nbsp;&nbsp;&nbsp;&nbsp;•&nbsp;Kanchivaram&nbsp;&nbsp;&nbsp;&nbsp;•&nbsp;Handloom Cotton&nbsp;&nbsp;&nbsp;&nbsp;•&nbsp;Bridal Collection&nbsp;&nbsp;&nbsp;&nbsp;•&nbsp;Free Shipping (Domestic Orders)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;•&nbsp;International Shipping ₹2000&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;•&nbsp;Limited Offer&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;•&nbsp;Trusted by 10,000+ Customers&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;•&nbsp;Festive Collection&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;•&nbsp;seelaikaari.com&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;•&nbsp;Silk Sarees
-    </span>
-    </div>
-  );
-}
-
-
-
-
-
-export default Navbar
+export default Navbar;
