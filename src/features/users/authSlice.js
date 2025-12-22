@@ -4,56 +4,44 @@ import { authApi } from './authApi';
 const authSlice = createSlice({
     name: 'auth',
     initialState: {
+        token: localStorage.getItem('token') || null,
         isLogin: false,
         user: null,
-        loading: false,
     },
     reducers: {
         setUser: (state, action) => {
             state.user = action.payload;
-            state.isLogin = true;
-            state.loading = false;
+            state.isLogin = !!action.payload;
         },
-        clearUser: (state) => {
+        clearAuth: (state) => {
             state.user = null;
             state.isLogin = false;
-            state.loading = false;
+            state.token = null;
+            localStorage.removeItem('token');
         },
-        setLoading: (state, action) => {
-            state.loading = action.payload;
-        }
     },
     extraReducers: (builder) => {
         builder
-            .addMatcher(
-                authApi.endpoints.login.matchPending,
-                (state) => {
-                    state.loading = true;
-                }
-            )
-            .addMatcher(
-                authApi.endpoints.login.matchFulfilled,
-                (state, action) => {
-                    state.user = action.payload;
-                    state.isLogin = true;
-                    state.loading = false;
-                }
-            )
-            .addMatcher(
-                authApi.endpoints.login.matchRejected,
-                (state) => {
-                    state.loading = false;
-                }
-            )
-            .addMatcher(
-                authApi.endpoints.logout.matchFulfilled,
-                (state) => {
-                    state.user = null;
-                    state.isLogin = false;
-                }
-            );
+            .addMatcher(authApi.endpoints.login.matchFulfilled, (state, action) => {
+                state.token = action.payload.token;
+                localStorage.setItem('token', action.payload.token);
+            })
+            .addMatcher(authApi.endpoints.register.matchFulfilled, (state, action) => {
+                state.token = action.payload.token;
+                localStorage.setItem('token', action.payload.token);
+            })
+            .addMatcher(authApi.endpoints.getUser.matchFulfilled, (state, action) => {
+                state.user = action.payload.user;
+                state.isLogin = true;
+            })
+            .addMatcher(authApi.endpoints.logout.matchFulfilled, (state) => {
+                state.user = null;
+                state.isLogin = false;
+                state.token = null;
+                localStorage.removeItem('token');
+            });
     },
 });
 
-export const { setUser, clearUser, setLoading } = authSlice.actions;
+export const { setUser, clearAuth } = authSlice.actions;
 export default authSlice.reducer;

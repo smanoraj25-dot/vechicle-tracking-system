@@ -43,7 +43,7 @@ export const mergeGuestCart = async (userId, userCart) => {
     for (const item of guestCart) {
         if (!userCartProductIds.has(item.product_id)) {
             try {
-                await axios.post(`${API_URL}/api/addtocart/add`, {
+                await axios.post(`${API_URL}/api/cart/add`, {
                     userId,
                     productId: item.product_id,
                 });

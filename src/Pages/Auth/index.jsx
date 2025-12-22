@@ -6,62 +6,59 @@ import { RiLockPasswordLine, RiLoginCircleLine } from "react-icons/ri";
 import { IoMail } from "react-icons/io5";
 import { jwtDecode } from "jwt-decode";
 import "./style.css";
-import axios from "axios";
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
 import { Navigate, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { setUser, setLoading } from "../../features/users/authSlice";
+import { useSelector } from "react-redux";
 import { TiTick } from "react-icons/ti";
 import Popup from "../../Components/popupemailverify/Popup.jsx";
 import Popupforgetpassword from "../../Components/popupemailverify/Popupforgetpassword.jsx";
 import { mergeGuestWishlist } from "../wishlist/LSWishlistAddRemove.js";
 import { mergeGuestCart } from "../Cart/LSCartAddRemove.js";
+import {
+    useLoginMutation,
+    useRegisterMutation,
+    useSendVerificationCodeMutation,
+    useVerifyCodeMutation,
+    useLazyGetUserQuery,
+} from "../../features/users/authApi.js";
 
 const API_URL = import.meta.env.VITE_BACKENDURL;
 const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID || "";
 
-const GoogleLoginButton = ({ btntext }) => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const handleSuccess = async (response) => {
-    const decoded = jwtDecode(response.credential);
-    const sigindata = {
-      name: decoded.name,
-      email: decoded.email,
-      isgauth: decoded.email_verified,
+const GoogleLoginButton = () => {
+    const navigate = useNavigate();
+    const [register] = useRegisterMutation();
+    const [getUser] = useLazyGetUserQuery();
+
+    const handleSuccess = async (response) => {
+        const decoded = jwtDecode(response.credential);
+        const sigindata = {
+            name: decoded.name,
+            email: decoded.email,
+            isgauth: decoded.email_verified,
+        };
+
+        try {
+            await register(sigindata).unwrap();
+            await getUser().unwrap();
+            navigate("/");
+            toast.success("Signed up successfully!");
+        } catch (error) {
+            toast.error(error.data?.error || "An error occurred");
+        }
     };
 
-    try {
-      const res = await axios.post(`${API_URL}/api/users/register`, sigindata);
-      const token = res.data.token;
-
-      if (token) {
-        localStorage.setItem("token", token);
-        dispatch(setUser(res.data.data));
-        navigate("/");
-      }
-
-      toast.success(
-        res.data.error === "Email already registered"
-          ? "Login successfully"
-          : "Signed up successfully!",
-      );
-    } catch (error) {
-      toast.error(error.response?.data?.error || "An error occurred");
-    }
-  };
-
-  return (
-    <GoogleOAuthProvider clientId={clientId}>
-      <div className="flex justify-center mt-4">
-        <GoogleLogin
-          onSuccess={handleSuccess}
-          onError={() => toast.error("Google Login Failed")}
-          text="continue_with"
-        />
-      </div>
-    </GoogleOAuthProvider>
-  );
+    return (
+        <GoogleOAuthProvider clientId={clientId}>
+            <div className="flex justify-center mt-4">
+                <GoogleLogin
+                    onSuccess={handleSuccess}
+                    onError={() => toast.error("Google Login Failed")}
+                    text="continue_with"
+                />
+            </div>
+        </GoogleOAuthProvider>
+    );
 };
 
 const InputField = ({
@@ -71,7 +68,6 @@ const InputField = ({
   onChange,
   error,
   icon,
-  isLogin,
 }) => (
   <div>
     <div className="login-inp-pos">
@@ -89,7 +85,11 @@ const InputField = ({
 );
 
 const Auth = () => {
-
+  const [login] = useLoginMutation();
+  const [register] = useRegisterMutation();
+  const [sendVerificationCode] = useSendVerificationCodeMutation();
+  const [verifyCode] = useVerifyCodeMutation();
+  const [getUser] = useLazyGetUserQuery();
   const [isLogintype, setisLogintype] = useState(true);
   const [rememberMe, setRememberMe] = useState(false);
   const [formData, setFormData] = useState({
@@ -100,34 +100,16 @@ const Auth = () => {
   });
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const { isLogin } = useSelector((state) => state.auth);
   const [popuptoggle, setPopuptoggle] = useState(false);
   const [verificationCode, setVerificationCode] = useState("");
-  const [setVerificationLoading] = useState(false);
   const [isemailverify, setIsemailverify] = useState(false);
   const [fpemail, setfpemail] = useState(false);
   
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    dispatch(setLoading(true));
-    if (token) {
-      axios
-        .post(
-          `${API_URL}/api/users/validate-token`,
-          {},
-          { headers: { Authorization: `Bearer ${token}` } },
-        )
-        .then((res) => dispatch(setUser(res.data.user)))
-        .catch(() => localStorage.removeItem("token"))
-        .finally(() => {
-          dispatch(setLoading(false));
-        });
-    }
-
     const storedEmail = localStorage.getItem("rememberedEmail");
     if (storedEmail) setFormData((prev) => ({ ...prev, email: storedEmail }));
-  }, [dispatch]);
+  }, []);
 
   const handleChange = (field, value) =>
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -161,82 +143,70 @@ const Auth = () => {
     if (!validateForm()) return;
 
     try {
-      const endpoint = isLogintype ? "/api/users/login" : "/api/users/register";
-      const response = await axios.post(`${API_URL}${endpoint}`, formData);
-      const token = response.data.token;
-
-      if (!token) {
-          throw new Error("No token returned");
+        if (isLogintype) {
+            await login(formData).unwrap();
+        } else {
+            await register(formData).unwrap();
         }
 
-        rememberMe ? localStorage.setItem("token", token) : localStorage.setItem("token", token);
-       
-        const validateRes = await axios.post(
-          `${API_URL}/api/users/validate-token`,
-          {},
-          { headers: { Authorization: `Bearer ${token}` } }
-        );
-        const user = validateRes.data.user;
+      if (rememberMe) {
+        localStorage.setItem("rememberedEmail", formData.email);
+      } else {
+        localStorage.removeItem("rememberedEmail");
+      }
 
-        await mergeGuestWishlist(user.id);
-        await mergeGuestCart(user.id);
+      const { user } = await getUser().unwrap();
 
-        dispatch(setUser(user));
+      await mergeGuestWishlist(user.id);
+      await mergeGuestCart(user.id);
 
-        navigate("/Account");
-        
-        toast.success(
-          isLogintype ? "Logged in successfully!" : "Signed up successfully!",
-        );
-      
+      navigate("/Account");
+
+      toast.success(
+        isLogintype ? "Logged in successfully!" : "Signed up successfully!",
+      );
+
       setFormData({ name: "", email: "", password: "", phone: "" });
     } catch (error) {
       console.log(error);
-      toast.error(error.response?.data?.error || "An error occurred");
-      setErrors({ email: error.response?.data?.error });
+      toast.error(error.data?.error || "An error occurred");
+      setErrors({ email: error.data?.error });
     }
   };
 
-  // Step 1: Send Verification Code
   const handleEmailVerification = async () => {
-    let response;
-    setIsemailverify(true);
     try {
-      if (!formData.email) setErrors({ email: "Email is required." });
-      else if (!/\S+@\S+\.\S+/.test(formData.email))
-        setErrors({ email: "Invalid email format." });
-      else {
-        response = await axios.post(`${API_URL}/api/users/sendverification`, {
-          email: formData.email,
-          name: formData.name || "",
-        });
+        if (!formData.email) {
+            setErrors({ email: "Email is required." });
+            return;
+        }
+        if (!/\S+@\S+\.\S+/.test(formData.email)) {
+            setErrors({ email: "Invalid email format." });
+            return;
+        }
+
+        await sendVerificationCode({ email: formData.email, name: formData.name || '' }).unwrap();
         toast.success("Verification code sent to your email.");
         setPopuptoggle(true);
-      }
     } catch (error) {
-      toast.error(error.response.data.message);
+        toast.error(error.data?.message || "An error occurred");
     }
   };
 
-  // Step 2: Verify the Entered Code
   const handleVerifyCode = async () => {
     if (!verificationCode) {
       toast.error("Please enter the verification code.");
       return;
     }
 
-    setVerificationLoading(true);
     try {
-      // const response = await axios.post(`${API_URL}/api/users/verify`, {
-      //   email:formData.email,
-      //   code: verificationCode,
-      // });
-      toast.success("Email verified successfully!");
-      setPopuptoggle(false);
+        await verifyCode({ email: formData.email, code: verificationCode }).unwrap();
+        toast.success("Email verified successfully!");
+        setIsemailverify(true);
+        setPopuptoggle(false);
     } catch (error) {
-      toast.error("Verification failed. Try again.");
+        toast.error("Verification failed. Try again.");
     }
-    setVerificationLoading(false);
   };
 
   return !isLogin ? (
@@ -283,9 +253,7 @@ const Auth = () => {
                         <button
                           type="button"
                           className="verify"
-                          onClick={() => {
-                            handleEmailVerification();
-                          }}
+                          onClick={handleEmailVerification}
                         >
                           <TiTick />
                           verify
@@ -344,7 +312,7 @@ const Auth = () => {
                 </button>
               </form>
 
-              <GoogleLoginButton btntext={isLogintype ? "Login" : "Signup"} />
+              <GoogleLoginButton />
 
               <p
                 className="dont-btn-log"

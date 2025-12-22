@@ -27,8 +27,8 @@ function App() {
   // Fetch user-specific data if the user is logged in
   // The `skip` option prevents the query from running if the condition is met.
   // We run the query only if there is a user ID.
-  useGetCartQuery(undefined, { skip: !user?.id });
-  useGetWishlistQuery(undefined, { skip: !user?.id });
+  useGetCartQuery(user?.id, { skip: !user?.id });
+  useGetWishlistQuery(user?.id, { skip: !user?.id });
 
   useEffect(() => {
     dispatch(setLoading(true));
