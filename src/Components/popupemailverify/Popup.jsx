@@ -36,19 +36,19 @@ const Popup = ({handleVerifyCode,handleEmailVerification,setVerificationCode}) =
         
       };
 
-      const handelverifyotp=()=>{
-        if (verifyotp.otpnum1==""||verifyotp.otpnum2==""||verifyotp.otpnum3==""||verifyotp.otpnum4==""){
-            toast.error("Invalid OTP");
-            return  
-        }
-        console.log("verified");
-        setVerifyotp({
-        otpnum1:"",
-        otpnum2:"",
-        otpnum3:"",
-        otpnum4:"",
-    })
-      }
+    //   const handelverifyotp=()=>{
+    //     if (verifyotp.otpnum1==""||verifyotp.otpnum2==""||verifyotp.otpnum3==""||verifyotp.otpnum4==""){
+    //         toast.error("Invalid OTP");
+    //         return  
+    //     }
+    //     console.log("verified");
+    //     setVerifyotp({
+    //     otpnum1:"",
+    //     otpnum2:"",
+    //     otpnum3:"",
+    //     otpnum4:"",
+    // })
+    //   }
     return (
         <>
             <div className="popup-wrapper">

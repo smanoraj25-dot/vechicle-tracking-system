@@ -31,6 +31,10 @@ const PopupForgetPassword = ({ setPopuptoggle }) => {
             email:fpemail
         })
         setPopuptoggle(false)
+        gtag('event', 'click', {
+                            event_category: 'login',
+                            event_label: 'forgotpassword'
+                            })
         toast.success("Reset password link has been sent to your email");
        }catch(err){
         toast.error(err.response.data.error);

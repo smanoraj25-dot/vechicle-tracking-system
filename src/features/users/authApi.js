@@ -65,7 +65,6 @@ export const {
     useRegisterMutation,
     useSendVerificationCodeMutation,
     useVerifyCodeMutation,
-    useLogoutMutation,
     useLazyGetUserQuery,
     useGetUserQuery,
     useUpdateUserMutation,

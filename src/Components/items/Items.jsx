@@ -43,10 +43,10 @@ const Items = ({ prdts }) => {
 
   return prdts ? (
     <div className="product-card">
-      <div className="wishlist-icon" onClick={toggleWishlist}>
+      <div className="wishlist-icon" onClick={()=>toggleWishlist()}>
         <FaHeart className={isWishlisted ? "wishlist-heart" : ""} />
       </div>
-      <div className="product-img" onClick={handleClick}>
+      <div className="product-img" onClick={()=>handleClick()}>
         <LazyLoadImage
           src={prdts?.images[0]?.url}
           alt="Aila organza"
@@ -64,7 +64,7 @@ const Items = ({ prdts }) => {
           <span className="normal-price">INR {(Number(prdts.price)).toLocaleString("en-IN", { minimumFractionDigits: 2 })}</span>
         </div>
         <div>
-          <button className="add-to-cart-btn" onClick={handleClick} style={{ background: "#ff6f61" }}>
+          <button className="add-to-cart-btn" onClick={()=>handleClick()} style={{ background: "#ff6f61" }}>
             {"view more"}
           </button>
         </div>

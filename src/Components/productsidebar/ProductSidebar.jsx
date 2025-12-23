@@ -26,7 +26,7 @@ const ProductSideBar = ({ filopt, title, handleChange, handleSearch }) => {
               onChange={handleChange}
             />
           ) : title === "search" ? (
-            <input type="text" placeholder="Search by name..." onChange={handleSearch} style={{width: "100%", border: "1px solid #ccc", padding: "5px"}}/>
+            <input type="text" placeholder="Search by name..." onChange={handleSearch} style={{width: "100%", border: "1px solid #ccc", padding: "5px",outline:"none"}}/>
           ) : (
             <ul>
               {filopt.map((category) => (

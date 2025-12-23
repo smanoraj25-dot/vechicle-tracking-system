@@ -21,7 +21,7 @@ const ShippingForm = ({
                         value={userDetails.name}
                         onChange={handleInputChange}
                     />
-                    {formErrors.name && <p className="error">{formErrors.name}</p>}
+                    {formErrors.name && <p className="error" style={{color:"red"}}>{formErrors.name}</p>}
                 </div>
 
                 <div className="form-group col-md-6">
@@ -33,7 +33,7 @@ const ShippingForm = ({
                         value={userDetails.email}
                         onChange={handleInputChange}
                     />
-                    {formErrors.email && <p className="error">{formErrors.email}</p>}
+                    {formErrors.email && <p className="error" style={{color:"red"}}>{formErrors.email}</p>}
                 </div>
 
                 <div className="form-group col-md-6">
@@ -45,7 +45,7 @@ const ShippingForm = ({
                         value={userDetails.phone}
                         onChange={handleInputChange}
                     />
-                    {formErrors.phone && <p className="error">{formErrors.phone}</p>}
+                    {formErrors.phone && <p className="error" style={{color:"red"}}>{formErrors.phone}</p>}
                 </div>
 
                 <div className="form-group col-md-6">
@@ -57,7 +57,7 @@ const ShippingForm = ({
                         value={userDetails.address1}
                         onChange={handleInputChange}
                     />
-                    {formErrors.address1 && <p className="error">{formErrors.address1}</p>}
+                    {formErrors.address1 && <p className="error"style={{color:"red"}}>{formErrors.address1}</p>}
                 </div>
 
                 <div className="form-group col-md-6">
@@ -75,7 +75,7 @@ const ShippingForm = ({
                             </option>
                         ))}
                     </select>
-                    {formErrors.country && <p className="error">{formErrors.country}</p>}
+                    {formErrors.country && <p className="error" style={{color:"red"}}>{formErrors.country}</p>}
                 </div>
 
                 <div className="form-group col-md-6">
@@ -94,7 +94,7 @@ const ShippingForm = ({
                             </option>
                         ))}
                     </select>
-                    {formErrors.state && <p className="error">{formErrors.state}</p>}
+                    {formErrors.state && <p className="error" style={{color:"red"}}>{formErrors.state}</p>}
                 </div>
 
                 <div className="form-group col-md-6">
@@ -113,7 +113,7 @@ const ShippingForm = ({
                             </option>
                         ))}
                     </select>
-                    {formErrors.city && <p className="error">{formErrors.city}</p>}
+                    {formErrors.city && <p className="error"style={{color:"red"}}>{formErrors.city}</p>}
                 </div>
 
                 <div className="form-group col-md-6">
@@ -125,7 +125,7 @@ const ShippingForm = ({
                         value={userDetails.pincode}
                         onChange={handleInputChange}
                     />
-                    {formErrors.pincode && <p className="error">{formErrors.pincode}</p>}
+                    {formErrors.pincode && <p className="error"style={{color:"red"}}>{formErrors.pincode}</p>}
                 </div>
 
                 <div className="col-12 text-center">

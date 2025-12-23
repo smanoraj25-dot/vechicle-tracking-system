@@ -170,10 +170,16 @@ const Auth = () => {
       toast.success(
         isLogintype ? "Logged in successfully!" : "Signed up successfully!",
       );
-
+      gtag('event', 'click', {
+                            event_category: 'login',
+                            event_label: 'login_success'
+                            })
       setFormData({ name: "", email: "", password: "", phone: "" });
     } catch (error) {
-      console.log(error);
+      gtag('event', 'click', {
+                            event_category: 'login',
+                            event_label: 'login_failed'
+                            })
       toast.error(error.data?.error || "An error occurred");
       setErrors({ email: error.data?.error });
     }

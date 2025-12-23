@@ -64,7 +64,10 @@ const Footer = () => {
                     </div>
                     <div>
                         <img src={footerLogo} alt="footerLogo" className="footerLogo" />
-                        <a href="https://slbdigitals.com/" target="_blank" className="ft-copy">Designed & Developed by Sai Logabala</a>
+                        <a href="https://slbdigitals.com/" target="_blank" className="ft-copy" onClick={()=>gtag('event', 'click', {
+                            event_category: 'slbdigitals',
+                            event_label: 'footer_logo'
+                            })}>Designed & Developed by Sai Logabala</a>
                     </div>
                 </div>
             </div>

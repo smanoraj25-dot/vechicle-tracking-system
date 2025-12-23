@@ -57,6 +57,10 @@ const RazorpayPayment = ({ totalAmount, userDetails, cartItems, setShowPayment }
           if (!response.razorpay_payment_id || !response.razorpay_signature) {
             console.error("Missing payment_id or signature from Razorpay!");
             alert("Payment verification failed! Try again.");
+            gtag('event', 'Payment_verification', {
+                            event_category: 'razorpay',
+                            event_label: 'Missing_payment_id_or_signature'
+                            })
             return;
           }
          
@@ -64,6 +68,10 @@ const RazorpayPayment = ({ totalAmount, userDetails, cartItems, setShowPayment }
       
          modal: {
           ondismiss: function () {
+            gtag('event', 'Payment_verification', {
+                            event_category: 'razorpay',
+                            event_label: 'payment_canceled'
+                            })
             alert("Payment was cancelled. Please try again.");
           }
         }
@@ -81,8 +89,16 @@ const RazorpayPayment = ({ totalAmount, userDetails, cartItems, setShowPayment }
       rzp.on('payment.success', function (response) {
         // console.log("✅ Payment Success:", response);
         if(user){
+           gtag('event', 'Payment_verification', {
+                            event_category: 'razorpay',
+                            event_label: 'payment_success_by_user'
+                            })
           navigate(`/Account`);
         }else{
+              gtag('event', 'Payment_verification', {
+                            event_category: 'razorpay',
+                            event_label: 'payment_success_by_guest_user'
+                            })
           navigate(`/`);
         }
         toast.success("Order placed successfully! Please check your email for details.");
